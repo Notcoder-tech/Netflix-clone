@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netflix Sign In</title>
+    <style>
+        /* -------- Base / Reset -------- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --nf-red: #e50914;
+            --nf-red-hover: #f6121d;
+            --nf-bg: rgba(0, 0, 0, .75);
+            --nf-overlay: rgba(0, 0, 0, .6);
+            --nf-input: #333;
+            --nf-text: #fff;
+            --nf-sub: #b3b3b3;
+            --nf-muted: #8c8c8c;
+            --nf-line: #404040;
+            --nf-btn-secondary: #2a2a2a;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--nf-text);
+            /* Background collage + dark overlay */
+            background:
+                linear-gradient(var(--nf-overlay), var(--nf-overlay)),
+                url('https://assets.nflxext.com/ffe/siteui/vlv3/cccff89d-51f7-4c77-a47b-62a43b2e1e7e/bc6f2d1d-2e15-4e7b-8bcf-6bcd9aa60132/IN-en-20230724-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center/cover;
+        }
+
+        /* -------- Header / Logo -------- */
+        .top-bar {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 3;
+        }
+
+        .logo {
+            height: 42px;
+            display: block;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .6));
+        }
+
+        /* -------- Page Layout -------- */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            /* pushes card to the right like the screenshot */
+            padding: 64px 3vw;
+        }
+
+        /* -------- Sign-in Card -------- */
+        .card {
+            width: 100%;
+            max-width: 450px;
+            /* Netflix uses ~450px */
+            background: var(--nf-bg);
+            /* subtle transparency */
+            border-radius: 6px;
+            padding: 48px 48px 36px;
+            box-shadow: 0 2px 24px rgba(0, 0, 0, .45);
+        }
+
+        .card h1 {
+            margin: 0 0 18px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* -------- Form -------- */
+        .field {
+            width: 100%;
+            height: 52px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: var(--nf-input);
+            color: var(--nf-text);
+            padding: 0 16px;
+            font-size: 1rem;
+            outline: none;
+            margin-top: 14px;
+            transition: border-color .15s ease;
+        }
+
+        .field::placeholder {
+            color: var(--nf-muted);
+        }
+
+        .field:focus {
+            border-color: #fff;
+        }
+
+        .btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 18px;
+            transition: background .15s ease, opacity .15s ease;
+        }
+
+        .btn-primary {
+            background: var(--nf-red);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--nf-red-hover);
+        }
+
+        .btn-secondary {
+            background: var(--nf-btn-secondary);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            opacity: .9;
+        }
+
+        /* -------- Divider (OR) -------- */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0;
+            color: var(--nf-sub);
+            font-size: .9rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            background: var(--nf-line);
+            flex: 1;
+        }
+
+        /* -------- Row options -------- */
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: .95rem;
+            color: var(--nf-sub);
+        }
+
+        .row a {
+            color: var(--nf-sub);
+            text-decoration: underline;
+        }
+
+        .row input[type="checkbox"] {
+            accent-color: #737373;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        /* -------- Below-card text -------- */
+        .meta {
+            margin-top: 22px;
+            color: var(--nf-sub);
+            font-size: .95rem;
+        }
+
+        .meta a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .meta a:hover {
+            text-decoration: underline;
+        }
+
+        .small {
+            margin-top: 10px;
+            color: var(--nf-muted);
+            font-size: .78rem;
+            line-height: 1.35;
+        }
+
+        .small a {
+            color: #0071eb;
+            text-decoration: none;
+        }
+
+        .small a:hover {
+            text-decoration: underline;
+        }
+
+        /* -------- Responsive -------- */
+        @media (max-width: 740px) {
+            .page {
+                justify-content: center;
+                padding: 32px 4vw;
+            }
+
+            .card {
+                background: rgba(0, 0, 0, .88);
+                padding: 32px 24px 28px;
+            }
+
+            .top-bar {
+                left: 16px;
+                top: 16px;
+            }
+
+            .logo {
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Logo -->
+    <div class="top-bar">
+        <!-- Use your own asset if you prefer -->
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix">
+    </div>
+
+    <!-- Page -->
+    <main class="page">
+        <section class="card" aria-label="Sign in form">
+            <h1>Sign In</h1>
+
+            <form>
+                <input class="field" type="text" placeholder="Email or mobile number" required>
+                <input class="field" type="password" placeholder="Password" required>
+                <button class="btn btn-primary" type="submit">Sign In</button>
+
+                <div class="divider">OR</div>
+
+                <button class="btn btn-secondary" type="button">Use a sign-in code</button>
+
+                <div class="row">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#">Forgot password?</a>
+                </div>
+            </form>
+
+            <div class="meta">
+                New to Netflix? <a href="#">Sign up now</a>.
+                <div class="small">
+                    This page is protected by Google reCAPTCHA to ensure you're not a bot.
+                    <a href="#">Learn more</a>.
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
