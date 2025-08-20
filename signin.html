@@ -38,7 +38,7 @@
             /* Background collage + dark overlay */
             background:
                 linear-gradient(var(--nf-overlay), var(--nf-overlay)),
-                url('https://assets.nflxext.com/ffe/siteui/vlv3/cccff89d-51f7-4c77-a47b-62a43b2e1e7e/bc6f2d1d-2e15-4e7b-8bcf-6bcd9aa60132/IN-en-20230724-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center/cover;
+                url("assets/img/header_bg.jpg") no-repeat center center/cover;
         }
 
         /* -------- Header / Logo -------- */
@@ -60,8 +60,8 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            /* pushes card to the right like the screenshot */
+            justify-content: center;
+            /* 👈 centered now */
             padding: 64px 3vw;
         }
 
@@ -69,9 +69,7 @@
         .card {
             width: 100%;
             max-width: 450px;
-            /* Netflix uses ~450px */
             background: var(--nf-bg);
-            /* subtle transparency */
             border-radius: 6px;
             padding: 48px 48px 36px;
             box-shadow: 0 2px 24px rgba(0, 0, 0, .45);
@@ -238,7 +236,6 @@
 <body>
     <!-- Logo -->
     <div class="top-bar">
-        <!-- Use your own asset if you prefer -->
         <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix">
     </div>
 
